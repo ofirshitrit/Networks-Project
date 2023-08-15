@@ -18,14 +18,19 @@ def normalize_data(data):
     return normalized_data
 
 
-folder_path = '/home/ofr/PycharmProjects/FinalProject/resources/csvFiles'
+# Get the parent directory of the current script (src folder)
+parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# Construct the path to the csvFiles folder
+csv_files = os.path.join(parent_directory, 'resources', 'csvFiles')
+# Navigate to the output folder within the res folder
+output_folder = os.path.join(parent_directory, 'res', 'OtherPlots')
 labels = ['Text', 'Images', 'Videos', 'Files', 'Voices']  # List of labels for different types of messages
 
 plt.figure(figsize=(10, 6))
 
-for filename, label in zip(os.listdir(folder_path), labels):
+for filename, label in zip(os.listdir(csv_files), labels):
     if filename.endswith('.csv'):
-        file_path = os.path.join(folder_path, filename)
+        file_path = os.path.join(csv_files, filename)
         df = pd.read_csv(file_path)
         message_sizes = df['Length'].tolist()
         normalized_sizes = normalize_data(message_sizes)
@@ -37,6 +42,11 @@ plt.yscale('log')
 plt.xlabel('Message Size')
 plt.ylabel('Complementary CDF')
 plt.title('CCDF of IM Size Distributions')
-plt.legend()
-# plt.grid(True)
-plt.show()
+
+# Save the plot
+plot_filename = 'CCDF'
+plot_path = os.path.join(output_folder, plot_filename)
+plt.savefig(plot_path)
+
+# Close the plot to avoid memory leaks
+plt.close()
