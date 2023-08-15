@@ -47,5 +47,5 @@ def pdf_plot(input_folder, output_folder, bins=10):
 
 
 input_folder = '/home/ofr/PycharmProjects/FinalProject/resources/csvFiles'
-output_folder = '/home/ofr/PycharmProjects/FinalProject/res/PDF_plots'
+output_folder = '/home/ofr/PycharmProjects/FinalProject/res/PDFPlots'
 pdf_plot(input_folder,output_folder)

@@ -27,8 +27,15 @@ def create_histogram(csv_file, output_folder, file_name,num_bins=50):
     plt.close()
 
 
-folder_path = '/home/ofr/PycharmProjects/FinalProject/resources/csvFiles'
-output_folder = '/home/ofr/PycharmProjects/FinalProject/res/Histograms'
+# Get the parent directory of the current script (src folder)
+parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Construct the path to the csvFiles folder
+folder_path = os.path.join(parent_directory, 'resources', 'csvFiles')
+
+
+# Navigate to the output folder within the res folder
+output_folder = os.path.join(parent_directory, 'res', 'HistogramsPlots')
 
 # List all files in the directory
 csv_files = [file for file in os.listdir(folder_path) if file.endswith('.csv') and file not in ['Noise.csv', 'Mix.csv']]
@@ -39,6 +46,5 @@ for csv_file in csv_files:
     # Extract the name of the file (without the extension)
     file_name = os.path.splitext(csv_file)[0]
     create_histogram(csv_path, output_folder,file_name)
-
 
 
