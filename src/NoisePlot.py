@@ -1,52 +1,39 @@
-import csv
+import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
-# Lists to store the data
-time_list = []
-length_list = []
-protocol_list = []
+# Your provided data
+# data = """
+# "No.","Time","Source","Destination","Protocol","Length","Info"
+# # ... (rest of the data)
+# """
 
-# Read data from the CSV file
-path = '/home/ofr/PycharmProjects/FinalProject/resources/csvFiles/Noise.csv'
-with open(path, 'r') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        time = float(row['Time'])
-        length = int(row['Length'])
-        protocol = row['Protocol']
-        time_list.append(time)
-        length_list.append(length)
-        protocol_list.append(protocol)
+# Get the parent directory of the current script (src folder)
+parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+# Construct the path to the csvFiles folder
+data = os.path.join(parent_directory, 'resources', 'csvFiles', 'Noise')
 
-# Set up bin parameters
-num_bins = 20  # Number of bins
-bin_range = (min(time_list), max(time_list))  # Range for the bins
+# Read the data into a DataFrame
+df = pd.read_csv(pd.compat.StringIO(data))
 
-# Create bins and plot the histogram
-plt.figure(figsize=(10, 6))
+# Filter for TCP and TLSv1.2 packets
+filtered_df = df[df["Protocol"].isin(["TCP", "TLSv1.2"])]
 
-# Plot data with "TLSv1.2" or "TCP" protocol in red
-plt.hist(
-    [length_list[i] for i in range(len(protocol_list)) if protocol_list[i] in ["TLSv1.2", "TCP"]],
-    bins=num_bins,
-    range=bin_range,
-    color='red',
-    alpha=0.7,
-    label='whatsapp'
-)
+# Convert "Time" column to numeric (removing "No." and converting to float)
+filtered_df["Time"] = pd.to_numeric(filtered_df["Time"], errors="coerce")
 
-# Plot data with other protocols in blue
-plt.hist(
-    [length_list[i] for i in range(len(protocol_list)) if protocol_list[i] not in ["TLSv1.2", "TCP"]],
-    bins=num_bins,
-    range=bin_range,
-    color='blue',
-    alpha=0.7,
-    label='youtube'
-)
+# Create time intervals (adjust the interval size as needed)
+time_interval = 0.5  # seconds
+filtered_df["Time Interval"] = (filtered_df["Time"] // time_interval) * time_interval
 
-plt.title('Histogram of Length vs Time')
-plt.xlabel('Time')
-plt.ylabel('Frequency')
-plt.legend()
+# Group by time intervals and protocol, then count packets
+grouped_df = filtered_df.groupby(["Time Interval", "Protocol"]).size().unstack().fillna(0)
+
+# Create a bar plot
+ax = grouped_df.plot(kind="bar", stacked=True, figsize=(10, 6))
+ax.set_xlabel("Time Interval (seconds)")
+ax.set_ylabel("Packet Count")
+ax.set_title("Packet Counts Over Time for TCP and TLSv1.2 Packets")
+plt.xticks(rotation=45)
+plt.tight_layout()
 plt.show()
