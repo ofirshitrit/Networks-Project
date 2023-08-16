@@ -47,6 +47,4 @@ plt.title('CCDF of IM Size Distributions')
 plot_filename = 'CCDF'
 plot_path = os.path.join(output_folder, plot_filename)
 plt.savefig(plot_path)
-
-# Close the plot to avoid memory leaks
 plt.close()

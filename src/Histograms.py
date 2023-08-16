@@ -22,8 +22,6 @@ def create_histogram(csv_file, output_folder, file_name,num_bins=50):
     plot_filename = os.path.splitext(os.path.basename(csv_file))[0] + '_histogram.png'
     plot_path = os.path.join(output_folder, plot_filename)
     plt.savefig(plot_path)
-
-    # Close the plot to avoid memory leaks
     plt.close()
 
 
