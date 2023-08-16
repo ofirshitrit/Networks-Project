@@ -42,6 +42,7 @@ plt.yscale('log')
 plt.xlabel('Message Size')
 plt.ylabel('Complementary CDF')
 plt.title('CCDF of IM Size Distributions')
+plt.legend()
 
 # Save the plot
 plot_filename = 'CCDF'
