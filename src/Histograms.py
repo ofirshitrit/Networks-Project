@@ -2,9 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-
 # Function to create histogram and plot for a CSV file
-def create_histogram(csv_file, output_folder, file_name,num_bins=50):
+def create_histogram(csv_file, output_folder, file_name, num_bins=50):
     # Read the CSV file into a pandas DataFrame
     df = pd.read_csv(csv_file)
 
@@ -24,22 +23,19 @@ def create_histogram(csv_file, output_folder, file_name,num_bins=50):
     plt.savefig(plot_path)
     plt.close()
 
-
 # Get the parent directory of the current script (src folder)
 parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 # Construct the path to the csvFiles folder
-csv_files = os.path.join(parent_directory, 'resources', 'csvFiles')
+csv_files_dir = os.path.join(parent_directory, 'resources', 'csvFiles')
 # Navigate to the output folder within the res folder
 output_folder = os.path.join(parent_directory, 'res', 'HistogramsPlots')
 
 # List all files in the directory
-csv_files = [file for file in os.listdir(csv_files) if file.endswith('.csv') and file not in ['Noise.csv', 'Mix.csv']]
+csv_files = [file for file in os.listdir(csv_files_dir) if file.endswith('.csv') and file not in ['Noise.csv', 'Mix.csv']]
 
 # Process each CSV file
 for csv_file in csv_files:
-    csv_path = os.path.join(csv_files, csv_file)
+    csv_path = os.path.join(csv_files_dir, csv_file)  # Fixed variable name here
     # Extract the name of the file (without the extension)
     file_name = os.path.splitext(csv_file)[0]
-    create_histogram(csv_path, output_folder,file_name)
-
-
+    create_histogram(csv_path, output_folder, file_name)
