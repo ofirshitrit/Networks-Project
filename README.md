@@ -25,9 +25,7 @@ Follow these steps to get started with the project:
 1. Clone the repository to your local machine.
 2. Open the `src` folder and explore the provided code. This may include data capture scripts, data analysis tools, and any other relevant files.
 3. Access the `resources` folder to review the `pcap` files and `csv` files containing captured network traffic data.
-4. Use Wireshark to analyze the captured packets and extract relevant information based on the project's objectives.
-5. Use the provided code or create your own analysis scripts to process the captured data and generate meaningful insights.
-6. As you perform the analysis, refer to the `res` folder for sample images and plots that showcase potential results and findings.
+4. As you perform the analysis, refer to the `res` folder for sample images and plots that showcase potential results and findings.
 
 ## Usage
 
