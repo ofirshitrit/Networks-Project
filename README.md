@@ -41,10 +41,3 @@ The `res` folder contains sub-folders with images and plots that visualize the r
 
 This project is conducted for educational and research purposes only. It is important to respect privacy and legal considerations when conducting traffic analysis. Ensure that you have appropriate permissions before capturing and analyzing network traffic.
 
-## Contact
-
-If you have any questions or need further assistance, please feel free to contact [Your Name] at [Your Email Address].
-
----
-
-Please note that this README is a template and should be customized according to your specific project details, including your name, email address, and any additional information you want to include. Additionally, ensure that you adhere to ethical and legal guidelines when conducting traffic analysis and handling sensitive data.
